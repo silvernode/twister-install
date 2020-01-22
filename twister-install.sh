@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 coreCloneDir="${HOME}/twister-core"
 configDir="${HOME}/.twister"
 htmlCloneDir="${configDir}/html"
-makeJobs="j9"
+makeJobs="j5"
 
 twister_deps_supported(){
     echo -e "\nPlease supply one of the following aruments: \n\n"
@@ -101,7 +101,6 @@ twister_launch(){
     else
 
         if [ ! -d ${HOME}/.twister ];then
-            pwd
             mkdir ${HOME}/.twister
             cp twister.conf ${HOME}/.twister
         fi
