@@ -24,7 +24,8 @@ makeJobs="j5"
 twister_deps_supported(){
     echo -e "\nPlease supply one of the following aruments: \n\n"
 
-    echo -e "void\n\n"
+    echo -e "void\n"
+    echo -e "fedora\n\n"
 
     echo -e "Example: ${0} deps void\n\n"
 }
@@ -32,9 +33,14 @@ twister_deps_supported(){
 twister_deps(){
     local curDistro="${1}"
     local voidPkgs="git boost boost-devel db db-devel libressl-devel base-devel"
+    local fedoraPkgs="git boost boost-devel libdb-cxx-devel openssl-devel"
 
     if [[ "${curDistro}" == "void" ]];then
         sudo xbps-install -S ${voidPkgs}
+
+    elif [[ "${curDistro}" = "fedora" ]];then
+        sudo dnf install ${fedoraPkgs}
+        sudo dnf group install "Development Tools"
     else
         echo -e "${LRED}Distro not supported ${NC}\n"
         echo -e "${YCYAN}Dependencies: boost, boost-devel, libressl-devel, db, db-devel, base-devel${NC}"
@@ -128,6 +134,7 @@ twister_rpc(){
     echo -e "\n${YELLOW}When you launch twister, you may be asked for a name and password:${NC}"
     echo -e "${YELLOW}user: user${NC}"
     echo -e "${YELLOW}password: pwd${NC}"
+    echo -e "If for some reason this isn't the case, check /$HOME/.twister"
 }
 
 if [[ -z "${1}" ]];then
